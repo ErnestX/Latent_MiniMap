@@ -65,6 +65,17 @@ scene.add( cube2 );
 scene.add( cube3 );
 scene.add( cube4 );
 
+const materialSurf = new THREE.LineBasicMaterial( { color: 0x00AFFF } );
+const vertices = [];
+
+vertices.push(new THREE.Vector3(1,1,1));
+vertices.push(new THREE.Vector3(10,0,10));
+vertices.push(new THREE.Vector3(10,0,0));
+const surfGeometry = new THREE.BufferGeometry().setFromPoints(vertices);
+const plane = new THREE.Mesh( surfGeometry, materialSurf );
+scene.add(plane)
+
+
 renderer.render( scene, camera );
 
 function render() {
