@@ -4,8 +4,6 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 document.getElementById('MiniMap').style.width = 800; 
 document.getElementById('MiniMap').style.height = 600; 
 
-console.log("hello world");
-
 
 // set up renderer, scene and camera
 
@@ -17,7 +15,7 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
 const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 500 );
-camera.position.set( 0, 0, 100 );
+camera.position.set( 50, 50, 50 );
 camera.lookAt( 0, 0, 0 );
 
 
@@ -25,24 +23,48 @@ camera.lookAt( 0, 0, 0 );
 const controls = new OrbitControls( camera, renderer.domElement );
 controls.addEventListener( 'change', render );
 
-const geometry1 = new THREE.CylinderGeometry( 0, 10, 30, 4, 1 );
-const material1 = new THREE.MeshPhongMaterial( { color: 0xffffff, flatShading: true } );
 
+const material = new THREE.LineBasicMaterial( { color: 0xffffff } );
 
-//create a blue LineBasicMaterial
-const material = new THREE.LineBasicMaterial( { color: 0x0000ff } );
+const origin = new THREE.Vector3( 0, 0, 0 )
+const points1 = [];
+points1.push(origin);
+points1.push( new THREE.Vector3( 10, 0, 0 ) );
+const geometry1 = new THREE.BufferGeometry().setFromPoints( points1 );
+const line1 = new THREE.Line( geometry1, material );
 
-// geometry with some vertices
-const points = [];
-points.push( new THREE.Vector3( - 10, 0, 0 ) );
-points.push( new THREE.Vector3( 0, 10, 0 ) );
-points.push( new THREE.Vector3( 10, 0, 0 ) );
+const points2 = [];
+points2.push(origin);
+points2.push( new THREE.Vector3( 0, 10, 0 ) );
+const geometry2 = new THREE.BufferGeometry().setFromPoints( points2 );
+const line2 = new THREE.Line( geometry2, material );
 
-const geometry = new THREE.BufferGeometry().setFromPoints( points );
+const points3 = [];
+points3.push(origin);
+points3.push( new THREE.Vector3( 0, 0, 10 ) );
+const geometry3 = new THREE.BufferGeometry().setFromPoints( points3 );
+const line3 = new THREE.Line( geometry3, material );
 
+scene.add( line1 );
+scene.add( line2 );
+scene.add( line3 );
 
-const line = new THREE.Line( geometry, material );
-scene.add( line );
+const cubeGeometry = new THREE.BoxGeometry( 1, 1, 1 );
+const cube1 = new THREE.Mesh( cubeGeometry, material );
+const cube2 = cube1.clone();
+const cube3 = cube1.clone();
+const cube4 = cube1.clone();
+
+cube1.position.set(0,0,0);
+cube2.position.set(10,0,0);
+cube3.position.set(0,10,0);
+cube4.position.set(0,0,10);
+
+scene.add( cube1 );
+scene.add( cube2 );
+scene.add( cube3 );
+scene.add( cube4 );
+
 renderer.render( scene, camera );
 
 function render() {
