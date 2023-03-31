@@ -49,7 +49,7 @@ scene.add( line1 );
 scene.add( line2 );
 scene.add( line3 );
 
-const cubeGeometry = new THREE.BoxGeometry( 1, 1, 1 );
+const cubeGeometry = new THREE.BoxGeometry( 0.2, 0.2, 0.2 );
 const cube1 = new THREE.Mesh( cubeGeometry, material );
 const cube2 = cube1.clone();
 const cube3 = cube1.clone();
@@ -67,13 +67,14 @@ scene.add( cube4 );
 
 const materialSurf = new THREE.LineBasicMaterial( { color: 0x00AFFF } );
 const vertices = [];
-
-vertices.push(new THREE.Vector3(1,1,1));
-vertices.push(new THREE.Vector3(10,0,10));
-vertices.push(new THREE.Vector3(10,0,0));
+vertices.push(new THREE.Vector3(2,5,1));
+vertices.push(new THREE.Vector3(0,2,5));
+vertices.push(new THREE.Vector3(5,0,5));
+vertices.push(new THREE.Vector3(5,3,0));
+vertices.push(new THREE.Vector3(2,5,1));
 const surfGeometry = new THREE.BufferGeometry().setFromPoints(vertices);
-const plane = new THREE.Mesh( surfGeometry, materialSurf );
-scene.add(plane)
+const planeOutline = new THREE.Line( surfGeometry, materialSurf );
+scene.add(planeOutline)
 
 
 renderer.render( scene, camera );
